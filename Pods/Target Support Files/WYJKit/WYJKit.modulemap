@@ -1,0 +1,6 @@
+framework module WYJKit {
+  umbrella header "WYJKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

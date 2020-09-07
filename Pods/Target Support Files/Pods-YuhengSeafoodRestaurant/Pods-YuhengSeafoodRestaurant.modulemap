@@ -1,0 +1,6 @@
+framework module Pods_YuhengSeafoodRestaurant {
+  umbrella header "Pods-YuhengSeafoodRestaurant-umbrella.h"
+
+  export *
+  module * { export * }
+}

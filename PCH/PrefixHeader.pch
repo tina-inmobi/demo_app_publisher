@@ -1,0 +1,142 @@
+//
+//  PrefixHeader.pch
+//  ListenMarathon
+//
+//  Created by tyx on 2019/6/14.
+//  Copyright © 2019年 tyx. All rights reserved.
+//
+
+
+//#ifndef __OPTIMIZE__
+//#define NSLog(...) NSLog(__VA_ARGS__)
+//#else
+//#define NSLog(...) {}
+//#endif
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#/**<屏幕宽度*/
+#define SCREEN_WIDTH    [UIScreen mainScreen].bounds.size.width
+/**<屏幕高度>*/
+#define SCREEN_HEIGHT   [UIScreen mainScreen].bounds.size.height
+
+/**<背景颜色>*/
+//#define BACKGROUND_COLOR  colorWithRed:56/255.0f green:206/255.0f blue:138/255.0f alpha:1
+
+#define color(r,g,b,a) [UIColor colorWithRed:r/255.f green:g/255.f blue:b/255.f alpha:a/1.f]
+#define HexRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#endif /* PrefixHeader_pch */
+
+
+/* UIColor.hexString(@""); */
+
+
+
+
+
+//是否iPhoneX YES:iPhoneX屏幕 NO:传统屏幕
+#define kIs_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define kStatusBarAndNavigationBarHeight (kIs_iPhoneX ? 88.f : 64.f)
+
+
+#define KSharedAppDelegate  (TGMAppDelegate*)[UIApplication sharedApplication].delegate;
+
+
+#define YLKeywindow [UIApplication sharedApplication].keywindow
+
+
+#define YHEIGHT(y) (y*[UIScreen mainScreen].bounds.size.width/375.f)
+#define XWIDTH(x) (x*[UIScreen mainScreen].bounds.size.width/375.f)
+
+#define MianCOLOR  [UIColor colorWithRed:56/255.f green:206/255.f blue:138/255.f alpha:1/1.f]
+
+
+//屏幕高度区别手机
+#define RSIPhone4 (SCREEN_HEIGHT == 480)
+#define RSIPhone5 (SCREEN_HEIGHT == 568)
+#define RSIPhone6 (SCREEN_HEIGHT == 667)
+#define RSIPhone6P (SCREEN_HEIGHT == 736)
+#define RSIPhoneX (SCREEN_HEIGHT == 812)
+
+#define RSLessIphone6 (RSIPhone4 || RSIPhone5)
+
+
+///导航栏高度
+#define RSNavBarHeight (44.0)
+///TabBar栏高度
+#define RSTabBarHeight (49.0)
+///底部安全区域
+
+#define RSBottomSafeHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20.1?34.0:0.0)
+///状态条占的高度
+#define RSStatusForHeight (CGRectGetMaxY([UIApplication sharedApplication].statusBarFrame)) 
+
+///导航栏高度 + 状态栏高度
+#define RSStatusAndNavForHeight (RSNavBarHeight + RSStatusForHeight)
+
+///TabBar高度 + iphoneX多出来的高度
+#define RSTabBarAndSafeBtmForHeight (RSTabBarHeight + RSBottomSafeHeight)
+
+#define WEAKSELF __weak typeof(self) weakSelf = self;
+
+#import <Masonry.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MJRefresh.h>
+#import <MJExtension.h>
+#import <WYJKitHeader.h>
+
+///pickerView
+#import <BRPickerView.h>
+#import "YHSRBaseTableView.h"
+#import "YHSRRSProgressHUD.h"
+#import "UIColor+RSKit.h"
+#import "YHSRBaseVC.h"
+#import "YHSRUserDefaultsManager.h"
+#import "YHSRToolManager.h"
+#import "YHSRAppDelegate.h"
+#import "YHSRAboutVC.h"
+#import "YHSRFeedbackVC.h"
+#import "NSDate+RSConversionToObtain.h"
+
+///主题颜色
+#define ThemeColors UIColor.hexString(@"#72c1e8")
+///主题名称
+#define ThemeName @"Yuheng Seafood Restaurant"
+///关于
+#define ThemeContent @""
+///userdefault
+#define rs YHSRUserDefaultsManager.shareManager
+
+#define LeftImg @"nav_ic_Back"
+///图标
+#define APPICON @"appicon_img"
+
+#define kSettingsKeyNetworkServerURL            @"im_network_serverurl"
+#define  IM_DEFAULT_SERVER_URL_KEY  @"https://i.w.inmobi.cn/showad.asm?"
+
+
+//日志输出
+#ifdef DEBUG
+#define Log(FORMAT, ...) fprintf(stderr,"\n====》执行文件：%s:   行号：  %d\nLOGINFO:\n%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
+#else
+#define Log(FORMAT, ...) nil
+#endif
+///字符串判空
+#define NoEmptyStr(obj1)\
+({\
+id obj = (obj1);\
+NSString *str = obj;\
+if([obj isKindOfClass:[NSNumber class]]) {\
+str = [obj stringValue];\
+} else if (obj == nil || obj == [NSNull null] || ([obj isKindOfClass:[NSString class]] && [obj length] == 0) || [obj isEqualToString:@"<null>"] || [obj isEqualToString:@"(null)"]){\
+str = @"";\
+}\
+(str);\
+})
+

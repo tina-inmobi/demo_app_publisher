@@ -1,0 +1,5 @@
+#import "YHSRBaseVC.h"
+NS_ASSUME_NONNULL_BEGIN
+@interface YHSRStoreSttingVC : YHSRBaseVC
+@end
+NS_ASSUME_NONNULL_END
